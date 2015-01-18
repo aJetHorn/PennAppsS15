@@ -2,25 +2,33 @@
 <html>
 	<head>
 		<title>Demeter</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="flaticon.css">
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 		<link rel="import" href="components/bower_components/paper-button/paper-button.html">
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		
 		<script src="app.js"></script>
 		<link rel="stylesheet" href="style.css">
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<paper-button id="header">
 			 Demeter
 		</paper-button>
+		<div id="wheat">
+			<i class="flaticon-wheat10"></i>
+		</div>
 		<div id="display">
-			test
+			graph is displayed here.
 		</div>
 		<div id="buttons">
-			<paper-button class="button" id="one">Button 1</paper-button>
-			<paper-button class="button" id="two">Button 2</paper-button>
-			<paper-button class="button" id="three">Button 3</paper-button>
-			<paper-button class="button" id="four">Button 4</paper-button>
+			<paper-button class="button" id="one">X</paper-button>
+			<paper-button class="button" id="two">Y</paper-button>
+			<paper-button class="button" id="three">Frequency</paper-button>
+			<paper-button class="button" id="four">Range</paper-button>
+			<paper-button class="button" id="five">Go</paper-button>
 		</div>
 	</body>
 </html>
