@@ -9,7 +9,17 @@ $(document).ready( function () {
 	var data3 = [];
 	var data4 = [];
 
+	var dataX = [];
+	var dataY = [];
+
+	var dataXURL;
+	var dataYURL;
+
+	var X = true; //X and Y
+
 	var stockName = "AAPL";
+	var bgColor = "#ecf0f1";
+
 
 	//adds up all array elements and returns sum
 	function sumOfArrayElements(array){
@@ -157,6 +167,11 @@ $(document).ready( function () {
 		}, "slow" );
 	}
 
+	function clearXYPanel(){
+		$("#tags").val("");
+		$("#stock").val("");
+	}
+
 	//reset/refresh with click or 'R' key
 	$(document).bind('keydown',function(e){
        if(e.keyCode == 82) {
@@ -201,15 +216,52 @@ $(document).ready( function () {
     $("#header").click(function() {
   		//location.reload();
 	});
+	function getURLByName(name){
+		var URL = "#_#_INVALID NAME PAIRING_#_#";
+		for (var i = 0; i < dataSource.length; i++){
+			if (dataSource[i][0] == name){
+				URL = dataSource[i][1];
+			}
+		}
+		return URL;
+	}
+	function setDataXURL(URL){
+		dataXURL = URL;
+	}
+	function setDataYURL(URL){
+		dataYURL = URL;
+	}
+	$("#useButton").click(function() {
+		if (X){
+			var urlTemp = getURLByName($("#tags").val());
+			setDataXURL(urlTemp);
+			console.log(dataXURL);
+		}
+		else{
+			var urlTemp = getURLByName($("#tags").val());
+			setDataYURL(urlTemp);
+			console.log(dataYURL);
+		}
+		$("#xyPanel").toggle("drop", {}, 500);
+		clearXYPanel();
+	});
     $("#one").click(function() { //X
-    	//console.log(calculateCorrelationCoefficient(data1, data2));
+    	if (!($("#xyPanel").is(':visible') && !X)){
+    		$("#xyPanel").toggle("drop", {}, 500);
+    	}
+    	X = true;
+    	clearXYPanel();
 	});
     $("#two").click(function() { //Y
-    	console.log(dataSource[12][1]);
-    	//correlationColor(getCorrelationCoefficient(data1, data2));
+    	if (!($("#xyPanel").is(':visible') && X)){
+    		$("#xyPanel").toggle("drop", {}, 500);
+    	}
+    	X = false;
+    	clearXYPanel();
 	});
 	$("#three").click(function() { //frequency
 		//transitionColor(getCorrelationCoefficient(data1, data2));
+		//console.log($("#xyPanel").is(':visible'));
 
 	});
 	$("#four").click(function() {
@@ -361,7 +413,7 @@ $(document).ready( function () {
       ["Wool","ODA/PWOOLC_USD"],
       ["Salmon","ODA/PSALM_USD"],
       ["Shrimp","ODA/PSHRI_USD"],
-      ["Fishmeal","ODA/PFISH_USD"]
+      ["Fishmeal","ODA/PFISH_USD"],
       ["US Harbor Gasoline","FRED/DGASNYH"],
       ["Regular Gas","FRED/GASREGCOVW"],
       ["Midgrade Gas","FRED/GASMIDCOVW"],
@@ -380,7 +432,7 @@ $(document).ready( function () {
       ["Iridium","JOHNMATT/IRID"],
       ["Rhodium","JOHNMATT/RUTH"],
       ["Tobacco","WORLDBANK/WLD_TOBAC_US"],
-      ["Fed Funds Effective","FRED/DFF.json"],
+      ["Fed Funds Effective","FRED/DFF"],
       ["4-week Treasury Bill","FRED/DTB4WK"],
       ["3-month Treasury Bill","FRED/DTB3"],
       ["6-month Treasury Bill","FRED/DTB6"],
@@ -405,7 +457,7 @@ $(document).ready( function () {
       ["NYSE Amex Oil Index","YAHOO/INDEX_XNG"],
       ["TSX Global Gold Index","YAHOO/INDEX_XAU"],
       ["US Total Population (Thousands)","WORLDBANK/USA_SP_POP_TOTL"],
-      ["Stock"]
+      ["Stock",""]
     ];
     $( "#tags" ).autocomplete({
       source: dataTypes
