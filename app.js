@@ -17,12 +17,17 @@ $(document).ready( function () {
 	var dataXURL;
 	var dataYURL;
 
+  var dataXName;
+  var dataYName;
+
 	var X = true; //X and Y
 
 	var smallestSize;
 
-	var stockNameX = ""; //was AAPL
+	var stockNameX = " "; //was AAPL
 	var bgColor = "#ecf0f1";
+
+  var formattedGraphData = [];
 
 
 	//adds up all array elements and returns sum
@@ -123,8 +128,6 @@ $(document).ready( function () {
 		return r;
 	}
 
-//00DE5E
-
 	function correlationColor(r){
 		if (r < -1 || r > 1){
 			console.log("Correlation coefficient is too large or too small");
@@ -150,22 +153,17 @@ $(document).ready( function () {
 
 			//0.5869565217391304
 			G = 222;
-			//colorMix = 0;
 			R = 222 - (128*r*1.7335);
-			//0 + (222 - colorMix);
 			B = 222 - (128*r);
-			//94 + (128 );
 		}
 		else{
 			r *= -1;
 			R = 222;
-			//colorMix = 255 + (255 * r);
 			G = 222 - (128*r*1.7335);
 			B = 222 - (128*r);
 		}
 
 		return [R, G, B];
-		//console.log(R + " " + G + " " + B);
 	}
 
 	function transition(){
@@ -176,6 +174,7 @@ $(document).ready( function () {
 
 	function transitionColor(r){
 		var color = correlationColor(r);
+    backgroundColor = color; //lazy global, used with canvas
 		console.log(color);
 		jQuery("#buttons, #header").animate({
 		 backgroundColor: jQuery.Color("rgb(" + parseInt(color[0]) + "," + parseInt(color[1]) + "," + parseInt(color[2]) + ")")
@@ -243,15 +242,20 @@ $(document).ready( function () {
 	}
 	$("#useButton").click(function() {
 		if (X){
-			stockName = $("#stock").val().toUpperCase();
-			var urlTemp = getURLByName($("#tags").val());
 			
+      if ($("#stock").val().toUpperCase() != ""){
+        stockName = $("#stock").val().toUpperCase();
+        dataXName = $("#tags").val() + " (" + stockName + ")";
+      }
+      else{
+        dataXName = $("#tags").val();
+      }
+      var urlTemp = getURLByName($("#tags").val());
 			setDataXURL(urlTemp);
 			console.log(dataXURL);
 
 			dataURL = dataXURL;
 		getQuandlData(function(data) { //asynch
-		console.log("X");
         console.log(data.data);
         console.log(data.data.length);
 
@@ -264,20 +268,24 @@ $(document).ready( function () {
         dataX = significantValues;
       });	
 
-
-
 		}
 		else{
-			stockName = $("#stock").val().toUpperCase();
-			var urlTemp = getURLByName($("#tags").val());
+			
+      if ($("#stock").val().toUpperCase() != ""){
+        stockName = $("#stock").val().toUpperCase();
+        dataYName = $("#tags").val() + " (" + stockName + ")";
+      }
+      else{
+        dataYName = $("#tags").val();
+      }
+      var urlTemp = getURLByName($("#tags").val());
+      
 			setDataYURL(urlTemp);
 			console.log(dataYURL);
 
 
-			//stockName = "T";
 		dataURL = dataYURL;
 	getQuandlData(function(data) { //asynch
-		console.log("Y");
         console.log(data.data);
         console.log(data.data.length);
 
@@ -363,10 +371,14 @@ $(document).ready( function () {
  //      });
 
 
-
-
-		transitionColor(getCorrelationCoefficient(dataX, dataY));
-
+    buildFormattedGraph();
+    drawGraph();
+    transitionColor(getCorrelationCoefficient(dataX, dataY));
+    //$('#display').css('width', '100%'); .animate({'width':perc+'%'});
+    //$('#display').animate({'width':100+'%'});
+    // jQuery("#display, html").animate({
+    //  backgroundColor: jQuery.Color("rgb(" + parseInt(backgroundColor[0]) + "," + parseInt(backgroundColor[1]) + "," + parseInt(backgroundColor[2]) + ")")
+    // }, "fast" );
 
 		//END OF QUANDL
 	}); //end of "five" click
@@ -402,6 +414,36 @@ $(document).ready( function () {
     var auth_token_url = "&auth_token=" + auth_token;
     var base_url = "https://www.quandl.com/api/v1/datasets/";
     return base_url + content + auth_token_url + trail;
+  }
+
+  function buildFormattedGraph(){
+    var graphSize = dataX.length; 
+    if (dataX.length != dataY.length){ //unequal lengths
+      if (dataX.length > dataY.length){
+          graphSize = dataY.length;
+          dataX = dataX.slice(0, dataY.length);
+      }
+      else{
+        dataY = dataY.slice(0, dataX.length);
+      }
+    }
+
+    for (var i = 0; i < graphSize; i++){
+      formattedGraphData.push([i+1,dataX[i],dataY[i]]);
+    }
+  }
+  function drawGraph() {
+    g = new Dygraph(document.getElementById("display"),
+      formattedGraphData,
+      {
+        ylabel: 'Price in USD or Amount',
+        xlabel: 'Weeks',
+        title: dataXName + " vs. " + dataYName,
+        showRoller: false,
+        rollPeriod: 1
+      })
+    g.resize(1160, 360);
+     //$('#display').css('width', '100%').css('width', '-=1px');
   }
 //Tags!
 
@@ -481,6 +523,37 @@ $(document).ready( function () {
       "Sugar No. 16 Futures",
       "Orange Juice Futures",
       "Cocoa Futures",
+      "US Life Expectancy at birth",
+      "US Age at first marriage, male",
+      "US Immunization (percentage of children age 12-23 months)",
+      "US health expenditure per capita",
+      "US Improved sanitation facilities (percent of population with access",
+      "Canada CO2 emissions (kilotons)",
+      "California Zillow Home Value Index (All Homes)",
+      "US Nitrous oxide emissions (thousand metric tons of CO2 equivalent)",
+      "Sweden Nitrous oxide emissions (thousand metric tons of CO2 equivalent)",
+      "China Number of people under-nourished",
+      "US Agriculture value added (percentage of GDP)",
+      "US Services value added (percentage of GDP)",
+      "US Rural population (percentage of total population)",
+      "US Population ages 65 and above (Percent of total)",
+      "US Real interest rate (%)",
+      "US Kerosene Total Production (Thousand metric tons)",
+      "US Uranium Production (Thousand metric tons)",
+      "US Prevalence of overweight males (Percent of male population over 15)",
+      "Germany Prevalence of overweight males (Percent of male population over 15)",
+      "US Age dependency ratio (% of working age population)",
+      "China Commodity exports (Billions of USD)",
+      "US Total Investment (Percent of GDP)",
+      "China Commodity imports (Billions of USD)",
+      "US Internet Users per 100 people",
+      "US Armed forces personnel, total",
+      "US Life Expectancy at birth, female",
+      "US Depth of hunger (kilocalories per person per day)",
+      "China Poverty gap at $5 a day PPP (percent)",
+      "China Population living in slums (percent of urban population)",
+      "US Estimated Control of Corruption",
+      "US Estimated Rule of Law",
       "Stock"
     ];
     var dataSource = [
@@ -510,7 +583,7 @@ $(document).ready( function () {
       ["Palladium","LPPM/PALL"],
       ["Platinum","LPPM/PLAT"],
       ["Silver","LBMA/SILVER"],
-      ["Steel","US WSJ/ST_SCRP"],
+      ["Steel","WSJ/ST_SCRP"],
       ["Iron","WSJ/FE_TJN"],
       ["Lead","OFDP/LEAD_31"],
       ["Zinc","OFDP/ZINC_26"],
@@ -556,9 +629,40 @@ $(document).ready( function () {
       ["US Total Wind Production (in thousands of KW-hrs)", "UN/ELECTRICITYTOTALWINDPRODUCTION_USA"],
       ["US Public Expenditure on education (Percentage of GDP)", "UN/UIS_PUBLICEXPENDITUREONEDUCATIONASOFGDP__USA"],
       ["Norway Public Expenditure on education (Percentage of GDP)", "UN/UIS_PUBLICEXPENDITUREONEDUCATIONASOFGDP__NOR"],
-      ["ICE Sugar No. 16 Futures", "futures/ice-sugar-no-16-futures"],
-      ["ICE Orange Juice Futures", "futures/ice-orange-juice-futures"],
-      ["ICE Cocoa Futures", "SCF/ICE_CC1_FW-ICE"],
+      ["Sugar No. 16 Futures", "futures/ice-sugar-no-16-futures"],
+      ["Orange Juice Futures", "futures/ice-orange-juice-futures"],
+      ["Cocoa Futures", "SCF/ICE_CC1_FW-ICE"],
+      ["US Life Expectancy at birth", "WORLDBANK/USA_SP_DYN_LE00_IN"],
+      ["US Age at first marriage, male", "WORLDBANK/USA_SP_DYN_SMAM_MA"],
+      ["US Immunization (percentage of children age 12-23 months)", "WORLDBANK/USA_SH_IMM_IDPT"],
+      ["US health expenditure per capita", "WORLDBANK/USA_SH_XPD_PCAP_PP_KD"],
+      ["US Improved sanitation facilities (percent of population with access", "WORLDBANK/USA_SH_STA_ACSN"],
+      ["Canada CO2 emissions (kilotons)", "WORLDBANK/CAN_EN_ATM_CO2E_KT"],
+      ["California Zillow Home Value Index (All Homes)", "ZILLOW/STATE_ALLHOMES_CALIFORNIA"],
+      ["US Nitrous oxide emissions (thousand metric tons of CO2 equivalent)", "WORLDBANK/USA_EN_ATM_NOXE_KT_CE"],
+      ["Sweden Nitrous oxide emissions (thousand metric tons of CO2 equivalent)", "WORLDBANK/SWE_EN_ATM_NOXE_KT_CE"],
+      ["China Number of people under-nourished", "WORLDBANK/CHN_SN_ITK_DEFC"],
+      ["US Agriculture value added (percentage of GDP)", "WORLDBANK/USA_NV_AGR_TOTL_ZS"],
+      ["US Services value added (percentage of GDP)", "WORLDBANK/USA_NV_SRV_TETC_ZS"],
+      ["US Rural population (percentage of total population)", "WORLDBANK/USA_SP_RUR_TOTL_ZS"],
+      ["US Population ages 65 and above (Percent of total)", "WORLDBANK/USA_SP_POP_65UP_TO_ZS"],
+      ["US Real interest rate (%)", "WORLDBANK/USA_FR_INR_RINR"],
+      ["US Kerosene Total Production (Thousand metric tons)", "UN/KEROSENETOTALPRODUCTION_USA"],
+      ["US Uranium Production (Thousand metric tons)", "UN/URANIUMPRODUCTION_USA"],
+      ["US Prevalence of overweight males (Percent of male population over 15)", "WORLDBANK/USA_SH_STA_OW15_MA_ZS"],
+      ["Germany Prevalence of overweight males (Percent of male population over 15)", "WORLDBANK/DEU_SH_STA_OW15_MA_ZS"],
+      ["US Age dependency ratio (% of working age population)", "WORLDBANK/USA_SP_POP_DPND"],
+      ["China Commodity exports (Billions of USD)", "UN/COMM_1_ALLCOMMODITIES_EXPORT_CHN"],
+      ["US Total Investment (Percent of GDP)", "ODA/USA_NID_NGDP"],
+      ["China Commodity imports (Billions of USD)", "UN/COMM_1_ALLCOMMODITIES_IMPORT_CHN"],
+      ["US Internet Users per 100 people", "WORLDBANK/USA_IT_NET_USER_P2"],
+      ["US Armed forces personnel, total", "WORLDBANK/USA_MS_MIL_TOTL_P1"],
+      ["US Life Expectancy at birth, female", "WORLDBANK/USA_SP_DYN_LE00_FE_IN"],
+      ["US Depth of hunger (kilocalories per person per day)", "WORLDBANK/USA_SN_ITK_DPTH"],
+      ["China Poverty gap at $5 a day PPP (percent)", "WORLDBANK/CHN_SI_POV_GAP5"],
+      ["China Population living in slums (percent of urban population)", "WORLDBANK/CHN_EN_POP_SLUM_UR_ZS"],
+      ["US Estimated Control of Corruption", "WORLDBANK/USA_CC_EST"],
+      ["US Estimated Rule of Law", "WORLDBANK/USA_RL_EST"],
       ["Stock",""]
     ];
     $( "#tags" ).autocomplete({
