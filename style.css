@@ -55,7 +55,7 @@ body{
 }
 
 paper-toast {
-	padding-top: 15px;
+  padding-top: 15px;
   text-align: center;
   z-index: 99999;
   position: absolute;

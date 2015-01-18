@@ -232,7 +232,7 @@ $(document).ready( function () {
         data3 = significantValues;
       });	
 
-		stockName = "FB";
+		stockName = "T";
 	getQuandlData(function(data) { //asynch
         console.log(data.data);
         console.log(data.data.length);
@@ -277,7 +277,7 @@ $(document).ready( function () {
   }
   function buildQuandlURL(content, trail){ //Won't work with all cases
     var auth_token = "VEUT87tRgmysCmNqsAfS";
-    var auth_token_url = "?auth_token=" + auth_token;
+    var auth_token_url = "&auth_token=" + auth_token;
     var base_url = "https://www.quandl.com/api/v1/";
     return base_url + content + auth_token_url + trail;
   }
