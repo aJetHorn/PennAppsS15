@@ -19,6 +19,8 @@ $(document).ready( function () {
 
 	var X = true; //X and Y
 
+	var smallestSize;
+
 	var stockNameX = ""; //was AAPL
 	var bgColor = "#ecf0f1";
 
@@ -32,12 +34,16 @@ $(document).ready( function () {
 		return sum;
 	}
 	function sumOfArrayElementProducts(array1, array2){
+		var size = array1.length;
 		if (array1.length != array2.length){
 			console.log("In sumOfArrayElementSums, arrays aren't the same length");
-			console.log("Continuing anyway");
+			console.log("array1: " + array1.length + " " + "array2: " + array2.length);
+			if (array1.length > array2.length){
+				size = array2.length;
+			}
 		}
 		var sum = 0;
-		for (var i = 0; i < array1.length; i++){
+		for (var i = 0; i < size; i++){
 			sum += array1[i] * array2[i];
 		}
 		return sum;
@@ -89,9 +95,16 @@ $(document).ready( function () {
 
 	function getCorrelationCoefficient(array1, array2){
 		var size = array1.length;
-		if (array1.length > array2.length){ //change this if error
+		if (array1.length != array2.length){ //change this if error
 			console.log("Correlation coefficient arrays aren't same length");
-			size = array2.length; //change this if it produces an error
+			if (array1.length > array2.length){
+				size = array2.length;
+				array1 = array1.slice(0, array2.length);
+			}
+			else{
+				array2 = array2.slice(0, array1.length);
+			}
+			//size = array2.length; //change this if it produces an error
 		}
 		//var size = array1.length;
 		var sumArray1 = sumOfArrayElements(array1);
@@ -213,7 +226,10 @@ $(document).ready( function () {
 	function getURLByName(name){
 		var URL = "#_#_INVALID NAME PAIRING_#_#";
 		for (var i = 0; i < dataSource.length; i++){
-			if (dataSource[i][0] == name){
+			if (name.toUpperCase() == "STOCK"){
+				URL = "WIKI/" + stockName;
+			}
+			else if (dataSource[i][0].toUpperCase() == name.toUpperCase()){
 				URL = dataSource[i][1];
 			}
 		}
@@ -227,14 +243,55 @@ $(document).ready( function () {
 	}
 	$("#useButton").click(function() {
 		if (X){
+			stockName = $("#stock").val().toUpperCase();
 			var urlTemp = getURLByName($("#tags").val());
+			
 			setDataXURL(urlTemp);
 			console.log(dataXURL);
+
+			dataURL = dataXURL;
+		getQuandlData(function(data) { //asynch
+		console.log("X");
+        console.log(data.data);
+        console.log(data.data.length);
+
+        var significantValues = [];
+        for (var i = 0; i < data.data.length; i++){
+        	significantValues.push(data.data[i][1]);
+        }
+        console.log(significantValues);
+        //data3 = significantValues;
+        dataX = significantValues;
+      });	
+
+
+
 		}
 		else{
+			stockName = $("#stock").val().toUpperCase();
 			var urlTemp = getURLByName($("#tags").val());
 			setDataYURL(urlTemp);
 			console.log(dataYURL);
+
+
+			//stockName = "T";
+		dataURL = dataYURL;
+	getQuandlData(function(data) { //asynch
+		console.log("Y");
+        console.log(data.data);
+        console.log(data.data.length);
+
+        var significantValues = [];
+        for (var i = 0; i < data.data.length; i++){
+        	significantValues.push(data.data[i][1]);
+        }
+        console.log(significantValues);
+        //data4 = significantValues;
+        dataY = significantValues;
+        //transitionColor(getCorrelationCoefficient(data3, data4));
+        //transitionColor(getCorrelationCoefficient(dataX, dataY));
+      });
+
 		}
 		$("#xyPanel").toggle("drop", {}, 500);
 		clearXYPanel();
@@ -266,39 +323,49 @@ $(document).ready( function () {
 		//transitionColor(getCorrelationCoefficient(data1, data2));
 		//TRYING TO WORK WITH QUANDL
 		//stockName = "AMD";
-		dataURL = dataXURL;
-	getQuandlData(function(data) { //asynch
-		console.log("X");
-        console.log(data.data);
-        console.log(data.data.length);
 
-        var significantValues = [];
-        for (var i = 0; i < data.data.length; i++){
-        	significantValues.push(data.data[i][1]);
-        }
-        console.log(significantValues);
-        //data3 = significantValues;
-        dataX = significantValues;
-      });	
 
-		//stockName = "T";
-		dataURL = dataYURL;
-	getQuandlData(function(data) { //asynch
-		console.log("Y");
-        console.log(data.data);
-        console.log(data.data.length);
 
-        var significantValues = [];
-        for (var i = 0; i < data.data.length; i++){
-        	significantValues.push(data.data[i][1]);
-        }
-        console.log(significantValues);
-        //data4 = significantValues;
-        dataY = significantValues;
-        //transitionColor(getCorrelationCoefficient(data3, data4));
-        transitionColor(getCorrelationCoefficient(dataX, dataY));
-      });
+	// 	dataURL = dataXURL;
+	// getQuandlData(function(data) { //asynch
+	// 	console.log("X");
+ //        console.log(data.data);
+ //        console.log(data.data.length);
 
+ //        var significantValues = [];
+ //        for (var i = 0; i < data.data.length; i++){
+ //        	significantValues.push(data.data[i][1]);
+ //        }
+ //        console.log(significantValues);
+ //        //data3 = significantValues;
+ //        dataX = significantValues;
+ //      });	
+
+
+
+
+	// 	//stockName = "T";
+	// 	dataURL = dataYURL;
+	// getQuandlData(function(data) { //asynch
+	// 	console.log("Y");
+ //        console.log(data.data);
+ //        console.log(data.data.length);
+
+ //        var significantValues = [];
+ //        for (var i = 0; i < data.data.length; i++){
+ //        	significantValues.push(data.data[i][1]);
+ //        }
+ //        console.log(significantValues);
+ //        //data4 = significantValues;
+ //        dataY = significantValues;
+ //        //transitionColor(getCorrelationCoefficient(data3, data4));
+ //        //transitionColor(getCorrelationCoefficient(dataX, dataY));
+ //      });
+
+
+
+
+		transitionColor(getCorrelationCoefficient(dataX, dataY));
 
 
 		//END OF QUANDL
@@ -398,6 +465,22 @@ $(document).ready( function () {
       "NYSE Amex Oil Index",
       "TSX Global Gold Index",
       "US Total Population (Thousands)",
+      "China Total Population (Millions)",
+      "US Total Urban Population (Thousands)",
+      "US Population Annual Percentage Growth Rate",
+      "US Unemployment Rate (Percentage of total labor force)",
+      "US Consumer Price Index (1983 = 100)",
+      "US General Government Total Expenditure (Billions)",
+      "US GDP at constant prices (percentage change)",
+      "US Industrial Production (constant US prices, seasonal adjustment)",
+      "US Total Nuclear Production (in thousands of KW-hrs)",
+      "China Total Nuclear Production (in thousands of KW-hrs)",
+      "US Total Wind Production (in thousands of KW-hrs)",
+      "US Public Expenditure on education (Percentage of GDP)",
+      "Norway Public Expenditure on education (Percentage of GDP)",
+      "Sugar No. 16 Futures",
+      "Orange Juice Futures",
+      "Cocoa Futures",
       "Stock"
     ];
     var dataSource = [
@@ -460,6 +543,22 @@ $(document).ready( function () {
       ["NYSE Amex Oil Index","YAHOO/INDEX_XNG"],
       ["TSX Global Gold Index","YAHOO/INDEX_XAU"],
       ["US Total Population (Thousands)","WORLDBANK/USA_SP_POP_TOTL"],
+      ["China Total Population (Millions)", "WORLDBANK/CHN_SP_POP_TOTL"],
+      ["US Total Urban Population (Thousands)", "WORLDBANK/USA_SP_URB_TOTL_IN_ZS"],
+      ["US Population Annual Percentage Growth Rate", "WORLDBANK/USA_SP_POP_GROW"],
+      ["US Unemployment Rate (Percentage of total labor force)", "ODA/USA_LUR"],
+      ["US Consumer Price Index (1983 = 100)", "RATEINF/CPI_USA"],
+      ["US General Government Total Expenditure (Billions)", "ODA/USA_GGX"],
+      ["US GDP at constant prices (percentage change)", "ODA/USA_NGDP_RPCH"],
+      ["US Industrial Production (constant US prices, seasonal adjustment)", "WORLDBANK/USA_IPTOTSAKD"],
+      ["US Total Nuclear Production (in thousands of KW-hrs)", "UN/ELECTRICITYTOTALNUCLEARPRODUCTION_USA"],
+      ["China Total Nuclear Production (in thousands of KW-hrs)", "UN/ELECTRICITYTOTALNUCLEARPRODUCTION_CHN"],
+      ["US Total Wind Production (in thousands of KW-hrs)", "UN/ELECTRICITYTOTALWINDPRODUCTION_USA"],
+      ["US Public Expenditure on education (Percentage of GDP)", "UN/UIS_PUBLICEXPENDITUREONEDUCATIONASOFGDP__USA"],
+      ["Norway Public Expenditure on education (Percentage of GDP)", "UN/UIS_PUBLICEXPENDITUREONEDUCATIONASOFGDP__NOR"],
+      ["ICE Sugar No. 16 Futures", "futures/ice-sugar-no-16-futures"],
+      ["ICE Orange Juice Futures", "futures/ice-orange-juice-futures"],
+      ["ICE Cocoa Futures", "SCF/ICE_CC1_FW-ICE"],
       ["Stock",""]
     ];
     $( "#tags" ).autocomplete({
