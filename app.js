@@ -12,12 +12,14 @@ $(document).ready( function () {
 	var dataX = [];
 	var dataY = [];
 
+	var dataURL;
+
 	var dataXURL;
 	var dataYURL;
 
 	var X = true; //X and Y
 
-	var stockName = "AAPL";
+	var stockNameX = ""; //was AAPL
 	var bgColor = "#ecf0f1";
 
 
@@ -86,10 +88,12 @@ $(document).ready( function () {
 	}
 
 	function getCorrelationCoefficient(array1, array2){
-		if (array1.length != array2.length){
-			console.log("Correlation coefficient arrays aren't same length");
-		}
 		var size = array1.length;
+		if (array1.length > array2.length){ //change this if error
+			console.log("Correlation coefficient arrays aren't same length");
+			size = array2.length; //change this if it produces an error
+		}
+		//var size = array1.length;
 		var sumArray1 = sumOfArrayElements(array1);
 		var sumArray2 = sumOfArrayElements(array2);
 		var sumProducts = sumOfArrayElementProducts(array1, array2);
@@ -112,9 +116,7 @@ $(document).ready( function () {
 		if (r < -1 || r > 1){
 			console.log("Correlation coefficient is too large or too small");
 		}
-
 		//#00DE5E
-
 		var R;
 		var G;
 		var B;
@@ -171,14 +173,6 @@ $(document).ready( function () {
 		$("#tags").val("");
 		$("#stock").val("");
 	}
-
-	//reset/refresh with click or 'R' key
-	$(document).bind('keydown',function(e){
-       if(e.keyCode == 82) {
-          console.log("R");
-          $("#header").trigger("click");
-       }
-    });
 
     //for testing purposes only
     $(document).bind('keydown',function(e){
@@ -271,8 +265,10 @@ $(document).ready( function () {
 
 		//transitionColor(getCorrelationCoefficient(data1, data2));
 		//TRYING TO WORK WITH QUANDL
-		stockName = "AMD";
+		//stockName = "AMD";
+		dataURL = dataXURL;
 	getQuandlData(function(data) { //asynch
+		console.log("X");
         console.log(data.data);
         console.log(data.data.length);
 
@@ -281,11 +277,14 @@ $(document).ready( function () {
         	significantValues.push(data.data[i][1]);
         }
         console.log(significantValues);
-        data3 = significantValues;
+        //data3 = significantValues;
+        dataX = significantValues;
       });	
 
-		stockName = "T";
+		//stockName = "T";
+		dataURL = dataYURL;
 	getQuandlData(function(data) { //asynch
+		console.log("Y");
         console.log(data.data);
         console.log(data.data.length);
 
@@ -294,16 +293,11 @@ $(document).ready( function () {
         	significantValues.push(data.data[i][1]);
         }
         console.log(significantValues);
-        data4 = significantValues;
-        transitionColor(getCorrelationCoefficient(data3, data4));
+        //data4 = significantValues;
+        dataY = significantValues;
+        //transitionColor(getCorrelationCoefficient(data3, data4));
+        transitionColor(getCorrelationCoefficient(dataX, dataY));
       });
-
-
-
-
-
-
-
 
 
 
@@ -313,8 +307,17 @@ $(document).ready( function () {
 	  //Quandl section before moved to different file ---
   function getQuandlData(callback){
     //console.log(data);
-    var filter = "?collapse=weekly&trim_start=2014-01-17";
-    var urlContent = "datasets/WIKI/" + stockName + ".json" + filter;
+    var filter = "?collapse=weekly&trim_start=2014-01-17"; //default, will be changed
+    var urlContent = dataURL + ".json" + filter;
+    // if (X){
+    // 	console.log("X...");
+    // 	urlContent = dataXURL + ".json" + filter;
+    // }
+    // else if (!X){
+    // 	console.log("Y...");
+    // 	urlContent = dataYURL + ".json" + filter;
+    // }
+    //"WIKI/" + stockName + ".json" + filter;
     var URL = buildQuandlURL(urlContent, "");
     getQuandlObject(URL, function(data) {
       callback(data);
@@ -330,7 +333,7 @@ $(document).ready( function () {
   function buildQuandlURL(content, trail){ //Won't work with all cases
     var auth_token = "VEUT87tRgmysCmNqsAfS";
     var auth_token_url = "&auth_token=" + auth_token;
-    var base_url = "https://www.quandl.com/api/v1/";
+    var base_url = "https://www.quandl.com/api/v1/datasets/";
     return base_url + content + auth_token_url + trail;
   }
 //Tags!
@@ -462,7 +465,5 @@ $(document).ready( function () {
     $( "#tags" ).autocomplete({
       source: dataTypes
     });
-
-
 
 });
