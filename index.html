@@ -3,10 +3,13 @@
 	<head>
 		<title>Demeter</title>
 		<link rel="stylesheet" type="text/css" href="flaticon.css">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.0/dygraph-combined.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 		<link rel="import" href="components/bower_components/paper-button/paper-button.html">
+		<!-- Not used link rel="import" href="components/bower_components/paper-radio-group/paper-radio-group.html"-->
+		<link rel="import" href="components/bower_components/paper-toast/paper-toast.html">
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 		
 		<script src="app.js"></script>
@@ -22,13 +25,21 @@
 		</div>
 		<div id="display">
 			graph is displayed here.
+			
 		</div>
 		<div id="buttons">
-			<paper-button class="button" id="one">X</paper-button>
-			<paper-button class="button" id="two">Y</paper-button>
-			<paper-button class="button" id="three">Frequency</paper-button>
-			<paper-button class="button" id="four">Range</paper-button>
-			<paper-button class="button" id="five">Go</paper-button>
+			<paper-button class="button" id="one" onclick="document.querySelector('#toast1').show()">X</paper-button>
+			<paper-button class="button" id="two" onclick="document.querySelector('#toast2').show()">Y</paper-button>
+			<paper-button class="button" id="three" onclick="document.querySelector('#toast3').show()">Frequency</paper-button>
+			<paper-button class="button" id="four" onclick="document.querySelector('#toast4').show()">Range</paper-button>
+			<paper-button class="button" id="five" onclick="document.querySelector('#toast5').show()">Go</paper-button>
+
+			
 		</div>
 	</body>
+	<paper-toast id="toast1" text="Choose first data set" ></paper-toast>
+	<paper-toast id="toast2" text="Choose second data set" ></paper-toast>
+	<paper-toast id="toast3" text="Frequency defaults to weekly" ></paper-toast>
+	<paper-toast id="toast4" text="Range defaults to most recent 52 weeks" ></paper-toast>
+	<paper-toast id="toast5" text="RUNNING!!!!!!" ></paper-toast>
 </html>

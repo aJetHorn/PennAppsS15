@@ -6,6 +6,9 @@ $(document).ready( function () {
 	var data1 = [60, 61, 62, 63, 65];
 	var data2 = [3.1, 3.6, 3.8, 4, 4.1];
 
+	var data3 = [];
+	var data4 = [];
+
 	var stockName = "AAPL";
 
 	//adds up all array elements and returns sum
@@ -198,29 +201,52 @@ $(document).ready( function () {
     $("#header").click(function() {
   		//location.reload();
 	});
-    $("#one").click(function() {
-    	console.log(calculateCorrelationCoefficient(data1, data2));
+    $("#one").click(function() { //X
+    	//console.log(calculateCorrelationCoefficient(data1, data2));
 	});
-    $("#two").click(function() {
-    	correlationColor(getCorrelationCoefficient(data1, data2));
+    $("#two").click(function() { //Y
+
+    	//correlationColor(getCorrelationCoefficient(data1, data2));
 	});
-	$("#three").click(function() {
-		transitionColor(getCorrelationCoefficient(data1, data2));
+	$("#three").click(function() { //frequency
+		//transitionColor(getCorrelationCoefficient(data1, data2));
+
 	});
 	$("#four").click(function() {
-		transition();
+		//transition();
 	});
 	$("#five").click(function() {
+
+		//transitionColor(getCorrelationCoefficient(data1, data2));
 		//TRYING TO WORK WITH QUANDL
 		stockName = "AMD";
 	getQuandlData(function(data) { //asynch
-        var open = data.data[0][1];
-        var close = data.data[0][4];
-        var percentChange = (100 - (open / close) * 100);
-        var volume = data.data[0][5];
+        console.log(data.data);
+        console.log(data.data.length);
 
-        console.log(data);
+        var significantValues = [];
+        for (var i = 0; i < data.data.length; i++){
+        	significantValues.push(data.data[i][1]);
+        }
+        console.log(significantValues);
+        data3 = significantValues;
       });	
+
+		stockName = "FB";
+	getQuandlData(function(data) { //asynch
+        console.log(data.data);
+        console.log(data.data.length);
+
+        var significantValues = [];
+        for (var i = 0; i < data.data.length; i++){
+        	significantValues.push(data.data[i][1]);
+        }
+        console.log(significantValues);
+        data4 = significantValues;
+        transitionColor(getCorrelationCoefficient(data3, data4));
+      });
+
+
 
 
 
@@ -235,7 +261,8 @@ $(document).ready( function () {
 	  //Quandl section before moved to different file ---
   function getQuandlData(callback){
     //console.log(data);
-    var urlContent = "datasets/WIKI/" + stockName + ".json";
+    var filter = "?collapse=weekly&trim_start=2014-01-17";
+    var urlContent = "datasets/WIKI/" + stockName + ".json" + filter;
     var URL = buildQuandlURL(urlContent, "");
     getQuandlObject(URL, function(data) {
       callback(data);
