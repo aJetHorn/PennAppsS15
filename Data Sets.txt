@@ -1,0 +1,137 @@
+Countries
+Markets:
+	Bitcoin:
+		BTC/USD 24h average: BAVERAGE/USD.json
+	Commodities:
+		Aluminum: 
+			Aluminum Spot Price: OFDP/ALUMINIUM_21.json
+		Coal:
+			Northern Appalachian Coal Price: DOE/COAL.json
+		copper:
+			Spot Copper Prices: OFDP/COPPER_6.json
+		crude oil:
+			Other Oil Prices: OPEC Crude Oil Reference Basket Price: OPEC/ORB.json 
+		farms and fishery:
+			Dairy: Milk: WSJ/MILK.json
+			Cattle: 
+				Beef (ODA): ODA/PBEEF_USD.json
+				Cattle Hides: WSJ/HIDES.json
+			Poultry: broiler chickens, national composite weighted average: WSJ/CHKN_NTL.json
+			Pork: Pork, Chicago: ODA/PPORK_USD.json
+			Fats: Butter, AA Chicago: WSJ/BUTTER.json
+			Lamb: ODA/PLAMB_USD.json
+			Wool: ODA/PWOOLC_USD.json
+			Salmon: ODA/PSALM_USD.json
+			Shrimp: ODA/PSHRI_USD.json
+			fishmeal: ODA/PFISH_USD.json
+		gasoline:
+			US Harbor: FRED/DGASNYH.json
+			Regular Gas: FRED/GASREGCOVW.json
+			Midgrade gas: FRED/GASMIDCOVW.json
+			Premium gas: /FRED/GASPRMCOVW.json
+			All Gas: FRED/GASALLCOVW.json
+		gold: 
+			Gold Price (USD am): LBMA/GOLD.json 
+		grains and cereals:
+		natural gas: 
+			Marcellus NEPA Natural Gas Price: WSJ/NG_MARC.json
+		Palladium:
+			Palladium Price (USA AM): LPPM/PALL.json
+		Platinum: 
+			Platinum Price (USA AM): LPPM/PLAT.json
+		Silver:
+			Silver Price (USD): LBMA/SILVER.json
+		Industrial Metals:
+			Steel: Stainless Steel Scrap Price, US WSJ/ST_SCRP.json
+			Iron: Iron Ore, China: WSJ/FE_TJN.json
+			Lead: Current Lead Price: OFDP/LEAD_31.json
+			Zinc: Current Zinc Price: OFDP/ZINC_26.json
+			Tin: Tin Price(LME): OFDP/TIN_36.json
+
+		Rare Metals:
+			Iridium: JOHNMATT/IRID.json
+			Rhodium: JOHNMATT/RUTH.json
+			Ruthenium:
+
+		All Metals:
+		All Commodities:
+			Tobacco: WORLDBANK/WLD_TOBAC_US.json
+	Currencies:
+		ignore for now
+	Startups:
+
+	Yields:
+		Interest Rates:
+			Money Market:
+				Fed Funds Effective: FRED/DFF.json
+				4-week Treasury Bill: FRED/DTB4WK
+				3-month treasury Bill: FRED/DTB3
+				6-month Treasury Bill: FRED/DTB6
+				1-year Treasury Bill: FRED/DTB1YR
+			Borrowing Rate:
+				Prime Rate: FRED/DPRIME.json
+
+//Entry: Autofill, secondary
+
+//name, description, url
+Futures
+Stocks
+	US Indexes:
+		Bellwethers:
+			S&P 500 Index: YAHOO/INDEX_GSPC.json
+			NASDAQ 100 Index: YAHOO/INDEX_GSPC.json
+			DJIA: /NASDAQOMX/NDX.json
+			NYSE ARCA Major Market Index: /BCB/UDJIAD1.json
+			NYSE ARCA Institutional Index: YAHOO/INDEX_XMI.json
+		Broad market Indexes: 
+			NASDAQ Composite Index: datasets/NASDAQOMX/COMP.json
+			NYSE Composite Index: datasets/NASDAQOMX/COMP.json //incorrect?
+			RUSSELL 3000 Index: datasets/YAHOO/INDEX_NYA.json
+			Wilshire 5000 Index: datasets/YAHOO/INDEX_RUA.json
+			NYSE AMEX Composite Index: datasets/YAHOO/INDEX_XMI.json
+		Growth:
+	Sector Specific Industries:
+		Financial:
+			NASDAQ Bank Index: NASDAQOMX/BANK.json
+		Technology:
+			Nasdaq Computer Index: YAHOO/INDEX_IIX.json
+		Industrial:
+			Nasdaq Industrial index: NASDAQOMX/INDS.json
+		Housing: 
+			PHLX Housing Sector Index: YAHOO/INDEX_HGX.json
+		Consumer Cyclical:
+			Morgan Stanley Consumer Index: YAHOO/INDEX_CYC.json
+		Resources:
+			PHLX Oil service sector index: NASDAQOMX/EPX.json
+			NYSE AMEX Natural Gas Index: YAHOO/INDEX_OSX.json
+			NYSE AMEX Oil Index: YAHOO/INDEX_XNG.json
+		Gold and Silver:
+			TSX Global Gold Index: YAHOO/INDEX_XAU.json
+
+	Global Stocks:
+		China:
+			Shanghai Composite Index: 
+Economics
+Society
+Demography
+	WORLDBANK/USA_SP_POP_TOTL.json
+Energy
+Education
+Housing
+
+
+https://www.quandl.com/api/v1/datasets/WIKI/AAPL
+
+.json?auth_token=VEUT87tRgmysCmNqsAfS&collapse=weekly&trim_start=2014-01-17
+
+
+//collapse=none|daily|weekly|monthly|quarterly|annual
+//https://www.quandl.com/api/v1/datasets/WIKI/AAPL.json?collapse=daily
+
+[0][0] is date, [0][1] is price
+
+//default: one year, weekly
+
+//implement polymer toast
+
+https://www.quandl.com/api/v1/datasets/WIKI/AAPL.json?auth_token=VEUT87tRgmysCmNqsAfS&collapse=weekly&trim_start=2014-01-17
