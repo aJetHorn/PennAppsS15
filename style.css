@@ -3,24 +3,68 @@
 	padding: 0;
 }
 body{
-	height: 100%;
-	background-color: #ecf0f1;
+ /*<iframe src="//giphy.com/embed/Cqjq4bdc26UAU?html5=true" width="480" height="258" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>*/
 }
+#welcome{
+	color: white;
+	padding: 20px;
+	margin-top: 8%;
+	font-size: 36px;
+	text-align: left;
+	opacity: .7;
+	width: 350px;
+	background-color: black;
+}
+#bg-image{
+	position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -10;
+
+  display: block;
+}
+#background-image{
+	position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -10;
+
+  display: block;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.35), 
+      rgba(0, 0, 0, 0.35)
+    ),
+  url(/Wheat_field_BENEO.jpeg);
+  width: 100%;
+  height: 100%;
+  	background-size: 100% 100%;
+
+
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+}
+
 #header{
 	text-align: center;
 	font-family: 'Righteous', cursive;
 	padding: -15px;
 	width: 100%;
 	min-width: 1100px;
-	background-color: #ecf0f1;
+	background-color: transparent;
+	/*opacity: .1;*/
 	/* #34495e
 	* #ecf0f1
 	*/ 
-	font-size: 60px;
-	color: #34495e;
-	z-index: 999;
+/*	z-index: 100;
+*/	font-size: 8em;
+	/*color: #34495e;*/
+	color: white;
+	/*z-index: 999;*/
 	border-radius: 0px;
-	border-bottom: thin solid #2c3e50;
+	/*border-bottom: thin solid #2c3e50;*/
 }
 
 #display{
@@ -39,8 +83,12 @@ body{
   	position: fixed;
 	margin-bottom: 0px;
 	height: 100px;
-	background-color: #34495e;
+/*	background-color: #34495e;
+*/	
+	/*background-color: white;*/
+	background-color: #2ecc71;
 	border-top: thin solid #2c3e50;
+	opacity: .8;
 }
 #buttons .button{
 	display: table-cell;
@@ -48,7 +96,9 @@ body{
 	text-align: center;
 	vertical-align: middle;
 	height: 100px;
-	color: #3498db;
+/*	color: #3498db;
+*/	
+	color: white;
 	width: 220px;
 	
     /*border-right: thin solid #2c3e50;*/
@@ -63,11 +113,15 @@ paper-toast {
   padding-top: 15px;
   text-align: center;
   z-index: 99999;
+  background-color: black;
   position: absolute;
+  opacity: .7;
   top: 10px;
-  left: 870px;
+  right: 10px;
+  left: auto;
   height: 30px;
-  width: 100px;
+  /*height: 30px;*/
+  /*width: 100px;*/
 }
 
 #tags{
