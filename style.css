@@ -3,23 +3,30 @@
 	padding: 0;
 }
 body{
+	/*font-family: 'Slabo 27px', serif;*/
  /*<iframe src="//giphy.com/embed/Cqjq4bdc26UAU?html5=true" width="480" height="258" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>*/
 }
 #welcome{
+	/*font-family: 'Slabo 27px', serif;*/
 	color: white;
 	padding: 20px;
 	margin-top: 8%;
-	font-size: 36px;
+	font-size: 2em;
+	/*36px*/
 	text-align: left;
 	opacity: .7;
-	width: 350px;
+	width: 330px;
 	background-color: black;
+	font-family: 'Open Sans Condensed', sans-serif;
+	line-height: 30px;
 }
 #bg-image{
 	position: fixed;
   left: 0;
   right: 0;
   z-index: -10;
+  width: 100%;
+  height: 100%;
 
   display: block;
 }
@@ -30,11 +37,11 @@ body{
   z-index: -10;
 
   display: block;
-  background: linear-gradient(
+  /*background: linear-gradient(
       rgba(0, 0, 0, 0.35), 
       rgba(0, 0, 0, 0.35)
     ),
-  url(/Wheat_field_BENEO.jpeg);
+  url(/Wheat_field_BENEO.jpeg);*/
   width: 100%;
   height: 100%;
   	background-size: 100% 100%;
@@ -47,9 +54,17 @@ body{
   filter: blur(3px);
 }
 
+@font-face {
+    font-family: Sullivan;
+    src: url(/Sullivan_Personal_License/Sullivan-Fill.otf);
+}
+
 #header{
 	text-align: center;
-	font-family: 'Righteous', cursive;
+	/*font-family: 'Tangerine', cursive;*/
+	/*font-weight: 700;*/
+	/*font-family: 'Righteous', cursive;*/
+	font-family: 'Sullivan';
 	padding: -15px;
 	width: 100%;
 	min-width: 1100px;
@@ -59,7 +74,7 @@ body{
 	* #ecf0f1
 	*/ 
 /*	z-index: 100;
-*/	font-size: 8em;
+*/	font-size: 10em;
 	/*color: #34495e;*/
 	color: white;
 	/*z-index: 999;*/
@@ -75,33 +90,36 @@ body{
 	/*height: 100%;*/
 }
 #buttons{
+	font-family: 'Open Sans Condensed', sans-serif;
 	min-width: 1100px;
 	width: 100%;
-	bottom: 0;
-  	left: 0;
-  	right: 0;
-  	position: fixed;
-	margin-bottom: 0px;
-	height: 100px;
-/*	background-color: #34495e;
-*/	
-	/*background-color: white;*/
-	background-color: #2ecc71;
-	border-top: thin solid #2c3e50;
-	opacity: .8;
+	bottom: 20px;
+  	position: absolute;
+	/*margin-bottom: 0px;*/
+	/*height: 100px;*/
+	background-color: transparent;
+	opacity: .9;
+	display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
 }
 #buttons .button{
-	display: table-cell;
-	min-height: 100px;
+
+	/*padding: 10px;*/
+	background: linear-gradient(
+      rgba(0, 0, 0, 0.3), 
+      rgba(0, 0, 0, 0.3)
+    );
+    float: left;
+	margin: 0px 20px;
+	border: 3px solid #2ecc71;
+	/*display: table-cell;*/
+	/*min-height: 100px;*/
 	text-align: center;
-	vertical-align: middle;
-	height: 100px;
-/*	color: #3498db;
-*/	
-	color: white;
-	width: 220px;
-	
-    /*border-right: thin solid #2c3e50;*/
+	/*vertical-align: middle;*/
+	/*height: 100px;*/
+	font-size: 2.5em;
+	color: #2ecc71;
 }
 
 
