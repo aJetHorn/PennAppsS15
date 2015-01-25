@@ -10,6 +10,8 @@
 		<link rel="import" href="components/bower_components/paper-button/paper-button.html">
 		<!-- Not used link rel="import" href="components/bower_components/paper-radio-group/paper-radio-group.html"-->
 		<link rel="import" href="components/bower_components/paper-toast/paper-toast.html">
+		<link rel="import" href="components/bower_components/paper-input/paper-input.html">
+
 		<link href='http://fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
@@ -21,18 +23,17 @@
 	<body>
 		<div id="background-image"> </div>
 			<!-- //giphy.com/embed/10VjC8En2ljkPu or /retroWheat.gif -->
-				<iframe id="bg-image" src="//giphy.com/embed/10VjC8En2ljkPu" width="100%" height="100%" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+				<iframe id="background-image" src="//giphy.com/embed/10VjC8En2ljkPu" width="100%" height="100%" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 		<!--<paper-button id="header">-->
 		<div id="header">
 			 Demeter
 
 		</div>
-		<!--</paper-button>-->
-		<!--div id="wheat"-->
-			<!--<i class="flaticon-wheat10"></i>-->
-		<!--/div-->
-
-					 <div id="welcome"> And the merchants of the Earth weep and mourn over her. . .</div>
+		<div id="data1" style="display: none;"> 
+			<div id="dataHeader">Select First Data Set</div> <br>
+		<paper-button class="button" onclick="document.querySelector('#toastX').text='You Selected '+tags.value; document.querySelector('#toastX').show();" id="useButton">Use</paper-button></div>
+		<div id="info"> And the merchants of the Earth weep and mourn over her. . .</div>
+		
 		<div id="display">
 
 			
@@ -41,24 +42,25 @@
 				<h2 style="text-align: center;">Enter Name of Data Set</h2>
 				<br>
 				<div class="ui-widget">
-  				<label for="tags">Name: </label>
-  				<input id="tags">
-  				<input id="stock" placeholder="Symbol">
-  				</span>
+  					<label for="tags">Name: </label>
+  					<input id="tags">
+  					<input id="stock" placeholder="Symbol">
+  					</span>
+  					<!--paper-input id="dataSet1Input" label="Data Set I" floatinglabel></paper-input-->
 				</div>
-				<paper-button class="button" onclick="document.querySelector('#toastX').text='You Selected '+tags.value; document.querySelector('#toastX').show();" id="useButton">Use</paper-button>
+			<paper-button class="button" onclick="document.querySelector('#toastX').text='You Selected '+tags.value; document.querySelector('#toastX').show();" id="useButton">Use</paper-button>
 			</div>
 		</div>
-		<div id="buttons"> 
 
+
+		<div id="buttons"> 
 			<paper-button class="button" id="one" onclick="document.querySelector('#toast1').show()">Data I</paper-button>
 			<paper-button class="button" id="two" onclick="document.querySelector('#toast2').show()">Data II</paper-button>
 			<paper-button class="button" id="three" onclick="document.querySelector('#toast3').show()">Frequency</paper-button>
 			<paper-button class="button" id="four" onclick="document.querySelector('#toast4').show()">Range</paper-button>
-			<paper-button class="button" id="five" onclick="document.querySelector('#toast5').show()">Calculate</paper-button>
-
-			
+			<paper-button class="button" id="five" onclick="document.querySelector('#toast5').show()">Calculate</paper-button>			
 		</div>
+
 	</body>
 	<paper-toast id="toastX" text="Custom" ></paper-toast>
 	<paper-toast id="toast1" text="Choose first data set" ></paper-toast>

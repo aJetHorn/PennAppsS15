@@ -3,16 +3,12 @@
 	padding: 0;
 }
 body{
-	/*font-family: 'Slabo 27px', serif;*/
- /*<iframe src="//giphy.com/embed/Cqjq4bdc26UAU?html5=true" width="480" height="258" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>*/
 }
-#welcome{
-	/*font-family: 'Slabo 27px', serif;*/
+#info{
 	color: white;
 	padding: 20px;
-	margin-top: 8%;
+	margin-top: 150px;
 	font-size: 2em;
-	/*36px*/
 	text-align: left;
 	opacity: .7;
 	width: 330px;
@@ -20,28 +16,48 @@ body{
 	font-family: 'Open Sans Condensed', sans-serif;
 	line-height: 30px;
 }
-#bg-image{
+#data1{
+	/*top: 10px;*/
+	color: white;
+	padding: 20px;
+	font-size: 2em;
+	text-align: left;
+	opacity: .7;
+	width: 500px;
+	background-color: black;
+	font-family: 'Open Sans Condensed', sans-serif;
+	line-height: 30px;
+}
+#dataHeader{
+	padding-left: 10px;
+	padding-bottom: 20px;
+}
+.button::shadow .button-content{
+	padding: .1em .57em;
+}
+
+#background-image{
+	min-width: 1100px;
 	position: fixed;
   left: 0;
   right: 0;
   z-index: -10;
   width: 100%;
   height: 100%;
-
   display: block;
 }
-#background-image{
+/*#background-image{
 	position: fixed;
   left: 0;
   right: 0;
   z-index: -10;
 
   display: block;
-  /*background: linear-gradient(
+  background: linear-gradient(
       rgba(0, 0, 0, 0.35), 
       rgba(0, 0, 0, 0.35)
     ),
-  url(/Wheat_field_BENEO.jpeg);*/
+  url(/Wheat_field_BENEO.jpeg);
   width: 100%;
   height: 100%;
   	background-size: 100% 100%;
@@ -52,11 +68,12 @@ body{
   -o-filter: blur(3px);
   -ms-filter: blur(3px);
   filter: blur(3px);
-}
+}*/
 
 @font-face {
     font-family: Sullivan;
     src: url(/Sullivan_Personal_License/Sullivan-Fill.otf);
+    /* http://www.losttype.com/font/?name=sullivan */
 }
 
 #header{
@@ -95,31 +112,27 @@ body{
 	width: 100%;
 	bottom: 20px;
   	position: absolute;
-	/*margin-bottom: 0px;*/
-	/*height: 100px;*/
 	background-color: transparent;
 	opacity: .9;
+	font-size: 2.5em;
+	color: #2ecc71;
 	display: flex;
     justify-content: center; /* align horizontal */
     align-items: center; /* align vertical */
 }
 #buttons .button{
-
-	/*padding: 10px;*/
 	background: linear-gradient(
       rgba(0, 0, 0, 0.3), 
       rgba(0, 0, 0, 0.3)
     );
-    float: left;
 	margin: 0px 20px;
 	border: 3px solid #2ecc71;
-	/*display: table-cell;*/
-	/*min-height: 100px;*/
-	text-align: center;
-	/*vertical-align: middle;*/
-	/*height: 100px;*/
-	font-size: 2.5em;
+}
+
+#data1 .button{
+	font-family: 'Open Sans Condensed', sans-serif;
 	color: #2ecc71;
+	border: 3px solid #2ecc71;
 }
 
 
@@ -168,7 +181,26 @@ paper-toast {
 	left: 178;
 }
 
+#dataSet1Input{
+	/*background-color: #2ecc71;*/
+	color: #2ecc71;
+}
 
+#dataSet1Input /deep/ .paper-input[focused] /deep/ .floated-label .label-text{
+	color: #2ecc71;
+}
+
+#dataSet1Input[focused] .floated-label .label-text{
+	color: #2ecc71;
+}
+
+#floatedLabelText .label-text{
+	color: #2ecc71;
+	size: 50px;
+}
+paper-button{
+	padding: 0px;
+}
 
 .ui-autocomplete {
     max-height: 80px;

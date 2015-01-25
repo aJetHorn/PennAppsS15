@@ -240,84 +240,95 @@ $(document).ready( function () {
 	function setDataYURL(URL){
 		dataYURL = URL;
 	}
-	$("#useButton").click(function() {
-		if (X){
+	// $("#useButton").click(function() {
+	// 	if (X){
 			
-      if ($("#stock").val().toUpperCase() != ""){
-        stockName = $("#stock").val().toUpperCase();
-        dataXName = $("#tags").val() + " (" + stockName + ")";
-      }
-      else{
-        dataXName = $("#tags").val();
-      }
-      var urlTemp = getURLByName($("#tags").val());
-			setDataXURL(urlTemp);
-			console.log(dataXURL);
+ //      if ($("#stock").val().toUpperCase() != ""){
+ //        stockName = $("#stock").val().toUpperCase();
+ //        dataXName = $("#tags").val() + " (" + stockName + ")";
+ //      }
+ //      else{
+ //        dataXName = $("#tags").val();
+ //      }
+ //      var urlTemp = getURLByName($("#tags").val());
+	// 		setDataXURL(urlTemp);
+	// 		console.log(dataXURL);
 
-			dataURL = dataXURL;
-		getQuandlData(function(data) { //asynch
-        console.log(data.data);
-        console.log(data.data.length);
+	// 		dataURL = dataXURL;
+	// 	getQuandlData(function(data) { //asynch
+ //        console.log(data.data);
+ //        console.log(data.data.length);
 
-        var significantValues = [];
-        for (var i = 0; i < data.data.length; i++){
-        	significantValues.push(data.data[i][1]);
-        }
-        console.log(significantValues);
-        //data3 = significantValues;
-        dataX = significantValues;
-      });	
+ //        var significantValues = [];
+ //        for (var i = 0; i < data.data.length; i++){
+ //        	significantValues.push(data.data[i][1]);
+ //        }
+ //        console.log(significantValues);
+ //        //data3 = significantValues;
+ //        dataX = significantValues;
+ //      });	
 
-		}
-		else{
+	// 	}
+	// 	else{
 			
-      if ($("#stock").val().toUpperCase() != ""){
-        stockName = $("#stock").val().toUpperCase();
-        dataYName = $("#tags").val() + " (" + stockName + ")";
-      }
-      else{
-        dataYName = $("#tags").val();
-      }
-      var urlTemp = getURLByName($("#tags").val());
+ //      if ($("#stock").val().toUpperCase() != ""){
+ //        stockName = $("#stock").val().toUpperCase();
+ //        dataYName = $("#tags").val() + " (" + stockName + ")";
+ //      }
+ //      else{
+ //        dataYName = $("#tags").val();
+ //      }
+ //      var urlTemp = getURLByName($("#tags").val());
       
-			setDataYURL(urlTemp);
-			console.log(dataYURL);
+	// 		setDataYURL(urlTemp);
+	// 		console.log(dataYURL);
 
 
-		dataURL = dataYURL;
-	getQuandlData(function(data) { //asynch
-        console.log(data.data);
-        console.log(data.data.length);
+	// 	dataURL = dataYURL;
+	// getQuandlData(function(data) { //asynch
+ //        console.log(data.data);
+ //        console.log(data.data.length);
 
-        var significantValues = [];
-        for (var i = 0; i < data.data.length; i++){
-        	significantValues.push(data.data[i][1]);
-        }
-        console.log(significantValues);
-        //data4 = significantValues;
-        dataY = significantValues;
-        //transitionColor(getCorrelationCoefficient(data3, data4));
-        //transitionColor(getCorrelationCoefficient(dataX, dataY));
-      });
+ //        var significantValues = [];
+ //        for (var i = 0; i < data.data.length; i++){
+ //        	significantValues.push(data.data[i][1]);
+ //        }
+ //        console.log(significantValues);
+ //        //data4 = significantValues;
+ //        dataY = significantValues;
+ //        //transitionColor(getCorrelationCoefficient(data3, data4));
+ //        //transitionColor(getCorrelationCoefficient(dataX, dataY));
+ //      });
 
-		}
-		$("#xyPanel").toggle("drop", {}, 500);
-		clearXYPanel();
-	});
-    $("#one").click(function() { //X
-    	if (!($("#xyPanel").is(':visible') && !X)){
-    		$("#xyPanel").toggle("drop", {}, 500);
-    	}
-    	X = true;
-    	clearXYPanel();
-	});
-    $("#two").click(function() { //Y
-    	if (!($("#xyPanel").is(':visible') && X)){
-    		$("#xyPanel").toggle("drop", {}, 500);
-    	}
-    	X = false;
-    	clearXYPanel();
-	});
+	// 	}
+	// 	$("#xyPanel").toggle("drop", {}, 500);
+	// 	clearXYPanel();
+	// });
+
+    $("#buttons .button").click(function() {
+      if ($("#info").is(':visible')){
+        $("#info").toggle("drop", {}, 500);
+      }
+    })
+
+    $("#one").click(function() {
+      $("#data1").toggle("drop", {}, 500);
+    })
+
+ //    $("#one").click(function() { //X
+ //    	if (!($("#xyPanel").is(':visible') && !X)){
+ //    		$("#xyPanel").toggle("drop", {}, 500);
+ //    	}
+ //    	X = true;
+ //    	clearXYPanel();
+	// });
+ //    $("#two").click(function() { //Y
+ //    	if (!($("#xyPanel").is(':visible') && X)){
+ //    		$("#xyPanel").toggle("drop", {}, 500);
+ //    	}
+ //    	X = false;
+ //    	clearXYPanel();
+	// });
 	$("#three").click(function() { //frequency
 		//transitionColor(getCorrelationCoefficient(data1, data2));
 		//console.log($("#xyPanel").is(':visible'));
