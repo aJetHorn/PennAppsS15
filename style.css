@@ -18,6 +18,7 @@ body{
 }
 #data1{
 	/*top: 10px;*/
+	float: left;
 	color: white;
 	padding: 20px;
 	font-size: 2em;
@@ -27,10 +28,24 @@ body{
 	background-color: black;
 	font-family: 'Open Sans Condensed', sans-serif;
 	line-height: 30px;
+	margin: 0px
 }
-#dataHeader{
+#data2{
+	float: right;
+	color: white;
+	padding: 20px;
+	font-size: 2em;
+	text-align: left;
+	opacity: .7;
+	width: 500px;
+	background-color: black;
+	font-family: 'Open Sans Condensed', sans-serif;
+	line-height: 30px;
+	margin: 0px;
+}
+.dataHeader{
 	padding-left: 10px;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 }
 .button::shadow .button-content{
 	padding: .1em .57em;
@@ -72,7 +87,7 @@ body{
 
 @font-face {
     font-family: Sullivan;
-    src: url(/Sullivan_Personal_License/Sullivan-Fill.otf);
+    src: url(/PennAppsS15/Sullivan_Personal_License/Sullivan-Fill.otf);
     /* http://www.losttype.com/font/?name=sullivan */
 }
 
@@ -129,7 +144,7 @@ body{
 	border: 3px solid #2ecc71;
 }
 
-#data1 .button{
+#data1 .button, #data2 .button{
 	font-family: 'Open Sans Condensed', sans-serif;
 	color: #2ecc71;
 	border: 3px solid #2ecc71;

@@ -315,6 +315,11 @@ $(document).ready( function () {
       $("#data1").toggle("drop", {}, 500);
     })
 
+    $("#two").click(function() {
+      $("#data2").toggle("drop", {}, 500);
+    })
+
+
  //    $("#one").click(function() { //X
  //    	if (!($("#xyPanel").is(':visible') && !X)){
  //    		$("#xyPanel").toggle("drop", {}, 500);
